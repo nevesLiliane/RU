@@ -1,4 +1,4 @@
-package modelo;
+package aa.modelo;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -7,8 +7,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-import BD.Conexao;
-import Componentes.Constantes;
+import aa.Componentes.Constantes;
+import aa.bd.Conexao;
 
 public class Consumidor {
 	private String nome;
@@ -18,6 +18,19 @@ public class Consumidor {
 	private Titulo titulo;
 	private CPF cpf;
 	private String situacao;
+	public Consumidor(String nome, String matricula, String anoDeIngresso,
+			Sexo sexo, Titulo titulo, CPF cpf) {
+		super();
+		this.nome = nome;
+		this.matricula = matricula;
+		this.anoIngresso = anoDeIngresso;
+		this.sexo = sexo;
+		this.titulo = titulo;
+		this.cpf = cpf;
+	}
+	public Consumidor() {
+		// TODO Auto-generated constructor stub
+	}
 	public String getNome() {
 		return nome;
 	}
@@ -178,8 +191,7 @@ public class Consumidor {
 			stat = conn.createStatement();
 			rs = stat.executeQuery(sql);
 			
-			if (rs.next())
-			{
+			if (rs.next()){
 				consumidor.setMatricula(rs.getString(1));
 				consumidor.setNome(rs.getString(2));
 				consumidor.setAnoIngresso(rs.getString(3));

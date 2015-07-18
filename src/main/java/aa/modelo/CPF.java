@@ -1,4 +1,4 @@
-package modelo;
+package aa.modelo;
 
 import java.util.InputMismatchException;
 
