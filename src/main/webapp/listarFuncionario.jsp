@@ -28,7 +28,7 @@
           			<div class="content">
             			<h2 class="title"><%=Constantes.FUNCIONARIO %></h2><br>
             				<div class="inner">
-             					<form  id="FrmListaAlunos" name="FrmListaAlunos" action="#"  method="POST" class="form">
+             					<form  id="FrmListaAlunos" name="FrmListaAlunos" action="Funcionario"  method="POST" class="form">
 					               <table id="table-resultado" class="table">
 										<tr>
 						                   <th class="first"><input type="checkbox" id="check_todos" class="checkbox toggle" /></th>
@@ -74,8 +74,8 @@
 					               </table>
 					               <div class="actions-bar wat-cf">
                   <div class="actions">
-                  	<button id="novo-aluno" name="novo-aluno" class="button" type="button">
-                		<img src="Images/icons/tick.png" alt="<%=Constantes.NOVO%>" /> <%=Constantes.NOVO%>
+                  	<button id="acao" name="acao" class="button" type="submit" value="<%=Constantes.NOVO%>">
+                		<img src="Images/icons/tick.png" alt="<%=Constantes.NOVO%>"  /> <%=Constantes.NOVO%>
               		</button>
                     <button  id="excluir-aluno" name="excluir-aluno" class="button" type="button">
                       <img src="Images/icons/cross.png" alt="delete" /> <%=Constantes.DELETE%>

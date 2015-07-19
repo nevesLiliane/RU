@@ -37,11 +37,20 @@ public class Funcionario extends Consumidor{
 		Connection conn = Conexao.Conecta(Constantes.DBPATH, Constantes.USER, Constantes.PASS);
 		
 		try{
-			String sql = "INSERT INTO funcionario VALUES (?,?)";
+			String sql = "INSERT INTO consumidor VALUES (?,?,?, ?, ?,?, 1)";
 			PreparedStatement stmt = conn.prepareStatement(sql);
 			stmt.setString(1, getMatricula());
+			stmt.setString(2,getNome());
+			stmt.setString(3, getAnoIngresso());
+			stmt.setString(4,getSexo().toString());
+			stmt.setString(5, getTitulo().toString());
+			stmt.setString(6,getCpf().getCPF());
+			stmt.executeQuery();
+			sql = "INSERT INTO funcionario VALUES (?,?)";
+			stmt = conn.prepareStatement(sql);
+			stmt.setString(1, getMatricula());
 			stmt.setString(2,getDepartamento().getId());
-			
+			stmt.executeQuery();
 			conn.close();
 		} catch (Exception e){
 			conn.close();

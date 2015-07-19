@@ -12,6 +12,7 @@ public class Constantes {
 	final public static String ACAO_EDITAR = "Editar";
 	final public static String ACAO_DELETAR = "Excluir";
 
+	
 	final public static String CADREFEICAO = "Cadastro de Refei&ccedil&otildees dispon&iacuteveis";
 	final public static String CADALUNOS = "Cadastro de Alunos ";
 	final public static String CPF = "CPF ";
@@ -42,6 +43,8 @@ public class Constantes {
 	final public static String MATRICULA = "Matr&iacute;cula";
 	final public static String MESTRADO = "Mestrado";
 	final public static String MASCULINO = "Masculino ";
+	final public static String ERRO_VAZIO = "Erro, por favor preencha todos os campos ";
+	
 
 	final public static String NOME = "Nome ";
 
