@@ -9,7 +9,7 @@ public class Constantes {
 	
 	final public static String ALUNOS = "Alunos";
 	final public static String ANOINGRESSO = "Ano de Ingresso ";
-	final public static String ACAO_EDITAR = "Editar";
+	final public static String ACAO_EDITAR = "Edit";
 	final public static String ACAO_DELETAR = "Excluir";
 
 	
@@ -28,7 +28,7 @@ public class Constantes {
 	final public static String CADDEPTO = "Cadastro de " + DEPTO;
 
 	final public static String ESPECIALIZACAO = "Especializa&ccedil;&atilde;o";
-	final public static String EDITAR = "Editar ";
+	final public static String EDITAR = "Editar";
 
 	final public static String FUNCIONARIO = "Funcion&aacuterios";
 	final public static String CADFUNC = "Cadastro de " + FUNCIONARIO;

@@ -38,7 +38,7 @@
             <%@include file="messagePage.jsp" %>
             
               <form id="Frmpergunta" name="FrmFuncionario" action="Funcionario" method="POST" class="form">
-        	  <input type = "hidden" id="id" name = "id" <% if (funcionario != null && funcionario.getMatricula() != null ) { out.print(" value = '" + funcionario.getMatricula() + "'"); } %>>
+        	  <input type = "hidden" id="matricula" name = "matricula" <% if (funcionario != null && funcionario.getMatricula() != null ) { out.print(" value = '" + funcionario.getMatricula() + "'"); } %>>
                 <div class="group">
                   <label class="label"><%=Constantes.NOME%></label>
                   <input type="text" id="nome" name="nome" <%  if (funcionario != null && funcionario.getNome() != null ) { out.print(" value = '" + funcionario.getNome() + "'"); } %> class="text_field" />
@@ -68,18 +68,22 @@
                 
                 <div class="group">
                     <label class="label" for="post_title"><%=Constantes.CPF%></label>
-                    <input type="text"  id="cpf" name="cpf" <% if (funcionario != null && funcionario.getCpf().getCPF() != null ) { out.print(" value = '" + funcionario.getCpf().getCPF() + "'"); } %> class="text_field" onblur="valida<%=Constantes.CPF%>(this)"/>     
+                    <input type="text"  id="cpf" name="cpf" <% if (funcionario != null && funcionario.getCpf().getCPF() != null ) { out.print(" value = '" + funcionario.getCpf().getCPF() + "'"); } %> class="text_field" onblur="valida(this)"/>     
              	</div>
      	         <div class="group">
                     <label class="label" for="post_title"><%=Constantes.DEPTO%></label>
                     <select id ="departamento" name="departamento">
                     <% for(Departamento departamento : departamentos){ %>
-                        <option value="<%=departamento.getId()%>"><%=departamento.getNome()%></option>
+                        <option value="<%=departamento.getId() %>" <% if(funcionario!=null && (departamento.getId().equals(funcionario.getDepartamento().getId()))){ out.print(" selected");} %>><%=departamento.getNome()%></option>
                     <% } %>                        
                     </select>
                 </div>
                 <div class="group navform wat-cf">
+               <%if(funcionario == null) {%>
                   <button class="button" type="submit" id='acao' name="acao" value="<%=Constantes.SALVAR%>"><%=Constantes.SALVAR%></button>
+                <%}else{%>
+                 <button class="button" type="submit" id='acao' name="acao" value="<%=Constantes.ACAO_EDITAR%>"><%=Constantes.SALVAR%></button>
+                <%} %>
                   <span class="text_button_padding">Ou</span>
                   <a class="text_button_padding link_button" href="Funcionario"><%=Constantes.CANCELAR%></a>
                 </div>

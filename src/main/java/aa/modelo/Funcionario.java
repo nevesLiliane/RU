@@ -39,21 +39,22 @@ public class Funcionario extends Consumidor{
 		try{
 			String sql = "INSERT INTO consumidor VALUES (?,?,?, ?, ?,?, 1)";
 			PreparedStatement stmt = conn.prepareStatement(sql);
-			stmt.setString(1, getMatricula());
+			stmt.setInt(1, Integer.parseInt(getMatricula()));
 			stmt.setString(2,getNome());
 			stmt.setString(3, getAnoIngresso());
 			stmt.setString(4,getSexo().toString());
 			stmt.setString(5, getTitulo().toString());
 			stmt.setString(6,getCpf().getCPF());
-			stmt.executeQuery();
+			stmt.execute();
 			sql = "INSERT INTO funcionario VALUES (?,?)";
 			stmt = conn.prepareStatement(sql);
-			stmt.setString(1, getMatricula());
-			stmt.setString(2,getDepartamento().getId());
-			stmt.executeQuery();
+			stmt.setInt(1, Integer.parseInt(getMatricula()));
+			stmt.setInt(2,Integer.parseInt(getDepartamento().getId()));
+			stmt.execute();
 			conn.close();
 		} catch (Exception e){
 			conn.close();
+			e.printStackTrace();
 			System.out.println(e.getMessage());
 		}
 	}
@@ -140,19 +141,16 @@ public class Funcionario extends Consumidor{
 		
 	}
 	public Funcionario get(String matricula){
-		
 		Connection conn = Conexao.Conecta(Constantes.DBPATH, Constantes.USER, Constantes.PASS);
-
 		ResultSet rs = null;
-		Statement stat;
+		Statement stmt;
 		Funcionario funcionario = new Funcionario();
-
 		try{
-			String sql = "SELECT f.matricula, c.nome, c.ano_ingresso, c.sexo, c.titulo, c.cpf, f.iddepartamento, situacao FROM  "
-					+ "consumidor as c Join funcionario f on f.matricula = c.matricula  where situacao =1 and iddepartamento IS NOT "
-					+ "NULL and matricula=?";
-			stat = conn.createStatement();
-			rs = stat.executeQuery(sql);
+			String sql = "SELECT matricula, c.nome, c.ano_ingresso, c.sexo, c.titulo, c.cpf, departamento_iddepartamento, "
+					+ "situacao FROM  consumidor as c Join funcionario f on consumidor_matricula = matricula  where situacao =1 and "
+					+ "departamento_iddepartamento IS NOT NULL and matricula="+ Integer.parseInt(matricula);
+			stmt = conn.createStatement();
+			rs = stmt.executeQuery(sql);
 			
 			if (rs.next()){
 				funcionario.setMatricula(rs.getString(1));
@@ -164,6 +162,7 @@ public class Funcionario extends Consumidor{
 				funcionario.setTitulo(Titulo.valueOf(titulo));
 				CPF cpf = new CPF();
 				cpf.setCPF(rs.getString(6));
+				System.out.println(cpf.getCPF());
 				funcionario.setCpf(cpf);
 				Departamento depto = new Departamento();
 				funcionario.setDepartamento(depto.get(rs.getString(7)));
@@ -172,8 +171,8 @@ public class Funcionario extends Consumidor{
 		} 
 		catch (Exception e){
 			System.out.println(e.getMessage());
+			e.printStackTrace();
 		}
 		return funcionario;
-		
 	}
 }

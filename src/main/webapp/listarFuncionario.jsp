@@ -4,7 +4,6 @@
 <%@page contentType="text/html; charset=ISO-8859-1" language="java" pageEncoding="UTF-8" %>
 <!-- Nao deixa o JSP criar sessoes -->
 <%@page session="false"%>
-<%@include file="messagePage.jsp" %>
 <%
 	ArrayList<Funcionario> funcionarios = (ArrayList<Funcionario>)request.getAttribute("funcionarios");
 %>
@@ -26,12 +25,13 @@
       		<div id="main">
         		<div class="block" id="block-tables">
           			<div class="content">
+          			
             			<h2 class="title"><%=Constantes.FUNCIONARIO %></h2><br>
             				<div class="inner">
+            				<%@include file="messagePage.jsp" %>
              					<form  id="FrmListaAlunos" name="FrmListaAlunos" action="Funcionario"  method="POST" class="form">
 					               <table id="table-resultado" class="table">
 										<tr>
-						                   <th class="first"><input type="checkbox" id="check_todos" class="checkbox toggle" /></th>
 						                   <th><%=Constantes.NOME%></th>
 						                   <th><%=Constantes.MATRICULA%></th>
 						                   <th><%=Constantes.ANOINGRESSO%></th>
@@ -43,31 +43,27 @@
 					                 <% 	                
 					            
 					                for(int i=0; i < funcionarios.size(); i++) {
-					                  	if(i%2 == 0){ %>
-					                  	<tr class="odd">
-					                  	    <td>
-					                   			<input type="checkbox" class="checkbox" name="id" value=<%=funcionarios.get(i).getMatricula()%> />
-					                   		</td>                   
+
+				                  		String urlEditar = "Funcionario?acao="+Constantes.EDITAR+"&matricula="+funcionarios.get(i).getMatricula();
+					                  	if(i%2 == 0){%>
+					                  	<tr class="odd">                   
 					                        <td><%=funcionarios.get(i).getNome()%></td>
 					                        <td><%=funcionarios.get(i).getMatricula()%></td>
 					                        <td><%=funcionarios.get(i).getAnoIngresso()%></td>
 					                        <td><%=funcionarios.get(i).getSexo()%></td>
 					                        <td><%=funcionarios.get(i).getDepartamento().getSigla()%></td>
 					                        <td><%=funcionarios.get(i).getCpf().getCPF()%></td>
-					                        <td class="last"><a href="#"><%=Constantes.EDITAR%></a> </td>	                        
+					                        <td class="last"><a href="<%=urlEditar %>"><%=Constantes.EDITAR%></a> </td>	                        
 					                    </tr>
 					                <% } else { %>
-					                    <tr class="even">
-					                  	    <td>
-					                   			<input type="checkbox" class="checkbox" name="id" value=<%=funcionarios.get(i).getMatricula()%> />
-					                   		</td>                   
+					                    <tr class="even">                   
 					                         <td><%=funcionarios.get(i).getNome()%></td>
 					                        <td><%=funcionarios.get(i).getMatricula()%></td>
 					                        <td><%=funcionarios.get(i).getAnoIngresso()%></td>
 					                        <td><%=funcionarios.get(i).getSexo()%></td>
-					                        <td><%=funcionarios.get(i).getDepartamento()%></td>
-					                        <td><%=funcionarios.get(i).getCpf()%></td>
-					                        <td class="last"><a href="#"><%=Constantes.EDITAR%></a> </td>	                        
+					                        <td><%=funcionarios.get(i).getDepartamento().getSigla()%></td>
+					                        <td><%=funcionarios.get(i).getCpf().getCPF()%></td>
+					                        <td class="last"><a href="<%=urlEditar %>"><%=Constantes.EDITAR%></a> </td>	                        
 					                    </tr>                    
 					            	<%}  
 					           		}%>
@@ -77,9 +73,9 @@
                   	<button id="acao" name="acao" class="button" type="submit" value="<%=Constantes.NOVO%>">
                 		<img src="Images/icons/tick.png" alt="<%=Constantes.NOVO%>"  /> <%=Constantes.NOVO%>
               		</button>
-                    <button  id="excluir-aluno" name="excluir-aluno" class="button" type="button">
+                   <!--  <button  id="excluir-aluno" name="excluir-aluno" class="button" type="button">
                       <img src="Images/icons/cross.png" alt="delete" /> <%=Constantes.DELETE%>
-                    </button>
+                    </button> -->
                   </div>
                 </div>
               </form>

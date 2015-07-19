@@ -27,6 +27,7 @@ public class FuncionarioServlet extends HttpServlet {
 protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
 		
 		String acao = (String)request.getParameter("acao");
+		String matricula = (String)request.getParameter("matricula");
 	
 		if(acao==null){
 			request.setAttribute("funcionarios", new Funcionario().list());
@@ -35,7 +36,6 @@ protected void doPost(HttpServletRequest request, HttpServletResponse response) 
 			request.setAttribute("departamentos", new Departamento().list());
 			request.getRequestDispatcher("CadFuncionario.jsp").forward(request, response);			
 		}else if(acao.equals(Constantes.SALVAR)){
-			String matricula = (String)request.getParameter("matricula");
 			String nome = (String)request.getParameter("nome");
 			String anoIngresso = (String)request.getParameter("anoIngresso");
 			String sexo = (String)request.getParameter("sexo");
@@ -44,7 +44,7 @@ protected void doPost(HttpServletRequest request, HttpServletResponse response) 
 			String departamento = (String)request.getParameter("departamento");
 			System.out.println("Nome" + nome + "Sexo" + sexo);
 			if(matricula==null || nome==null || anoIngresso==null || sexo==null  || titulo==null || cpf==null || departamento==null){
-				System.out.println("Nome" + nome + "Sexo" + sexo);
+				//System.out.println("Nome" + nome + "Sexo" + sexo);
 				request.setAttribute("mensagem", Constantes.ERRO_VAZIO);
 				request.setAttribute("departamentos", new Departamento().list());
 				request.getRequestDispatcher("CadFuncionario.jsp").forward(request, response);	
@@ -71,7 +71,52 @@ protected void doPost(HttpServletRequest request, HttpServletResponse response) 
 					e.printStackTrace();
 				}
 			}
+		}else if(acao.equals(Constantes.EDITAR)){
+			
+			request.setAttribute("funcionario", new Funcionario().get(matricula));
+			request.setAttribute("departamentos", new Departamento().list());
+			request.getRequestDispatcher("CadFuncionario.jsp").forward(request, response);		
+		}else if((matricula!=null) && acao.equals(Constantes.ACAO_EDITAR)){
+			String nome = (String)request.getParameter("nome");
+			String anoIngresso = (String)request.getParameter("anoIngresso");
+			String sexo = (String)request.getParameter("sexo");
+			String titulo = (String)request.getParameter("titulo");
+			String cpf = (String)request.getParameter("cpf");
+			String departamento = (String)request.getParameter("departamento");
+			System.out.println("Nome" + nome + "Sexo" + sexo);
+			if(matricula==null || nome==null || anoIngresso==null || sexo==null  || titulo==null || cpf==null || departamento==null){
+				//System.out.println("Nome" + nome + "Sexo" + sexo);
+				request.setAttribute("mensagem", Constantes.ERRO_VAZIO);
+				request.setAttribute("departamentos", new Departamento().list());
+				request.getRequestDispatcher("CadFuncionario.jsp").forward(request, response);	
+			}else{
+				Funcionario func = new Funcionario();
+				func.setAnoIngresso(anoIngresso);
+				CPF cpftemp = new CPF();
+				cpftemp.setCPF(cpf);
+				func.setCpf(cpftemp);
+				func.setDepartamento(new Departamento().get(departamento));
+				func.setMatricula(matricula);
+				func.setNome(nome);
+				func.setSexo(Sexo.valueOf(sexo));
+				func.setTitulo(Titulo.valueOf(titulo));
+				try {
+					func.update(matricula);
+					request.setAttribute("mensagem", Constantes.SUCESSO);
+					request.setAttribute("funcionarios", new Funcionario().list());
+					request.getRequestDispatcher("listarFuncionario.jsp").forward(request, response);
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					request.setAttribute("mensagem", Constantes.ERRO);
+					request.getRequestDispatcher("CadFuncionario.jsp").forward(request, response);
+					e.printStackTrace();
+				}
+			}
+			request.setAttribute("funcionario", new Funcionario().get(matricula));
+			request.setAttribute("departamentos", new Departamento().list());
+			//request.getRequestDispatcher("CadFuncionario.jsp").forward(request, response);		
 		}
+			
 	
 	}
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{
