@@ -1,7 +1,14 @@
+<%@page import="aa.modelo.Departamento"%>
+<%@page import="java.util.ArrayList"%>
 <%@page import="aa.Componentes.Constantes"%>
 <%@page contentType="text/html; charset=ISO-8859-1" language="java" pageEncoding="UTF-8" %>
 <!-- Nao deixa o JSP criar sessoes -->
 <%@page session="false"%>
+<%@include file="messagePage.jsp" %>
+<%
+	ArrayList<Departamento> departamentos = (ArrayList<Departamento>)request.getAttribute("departamentos");
+
+%>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -22,7 +29,61 @@
       <div id="main">
         <div class="block" id="block-tables">
           <div class="content">
-            <h2 class="title"><%=Constantes.BEMVINDO %></h2><br>
+            <h2 class="title"><%=Constantes.DEPTO %></h2><br>
+            
+             <div class="inner">
+                                <form  id="FrmListaAlunos" name="FrmListaAlunos" action="#"  method="POST" class="form">
+                <table id="table-resultado" class="table">
+                  <tr>
+                    <th class="first"><input type="checkbox" id="check_todos" class="checkbox toggle" /></th>
+                    <th><%=Constantes.NOME%></th>
+                    <th><%=Constantes.SIGLA%></th>
+                    <th class="last">&nbsp;</th>
+                  </tr>
+                  <% 	                
+	                //ListarAluno la = new ListarAluno();
+                  	
+                  
+                  //ArrayList<Departamento> departamento = la.listar();
+	                  
+	                for(int i=0; i < departamentos.size(); i++) {
+	                  	if(i%2 == 0){ %>
+	                  	<tr class="odd">
+	                  	    <td>
+                    			<input type="checkbox" class="checkbox" name="id" value=<%=departamentos.get(i).getId()%> />
+                    		</td>                   
+	                        <td><%=departamentos.get(i).getNome()%></td>
+	                        <td><%=departamentos.get(i).getSigla()%></td>
+	                        <td class="last"><a href="#"><%=Constantes.EDITAR%></a> </td>	                        
+	                    </tr>
+	                <% } else { %>
+	                    <tr class="even">
+	                  	    <td>
+                    			<input type="checkbox" class="checkbox" name="id" value=<%=departamentos.get(i).getId()%> />
+                    		</td>                   
+	                        <td><%=departamentos.get(i).getNome()%></td>
+	                        <td><%=departamentos.get(i).getSigla()%></td>
+	                        <td class="last"><a href="#"><%=Constantes.EDITAR%></a> </td>	                        
+	                    </tr>                    
+	            	<%}  
+	           		}%>
+                </table>
+                <div class="actions-bar wat-cf">
+                  <div class="actions">
+                  	<button id="novo-aluno" name="novo-aluno" class="button" type="button">
+                		<img src="Images/icons/tick.png" alt="<%=Constantes.NOVO%>" /> <%=Constantes.NOVO%>
+              		</button>
+                    <button  id="excluir-aluno" name="excluir-aluno" class="button" type="button">
+                      <img src="Images/icons/cross.png" alt="delete" /> <%=Constantes.DELETE%>
+                    </button>
+                  </div>
+                  <!--<div class="pagination">
+                    <span class="disabled prev_page">« Previous</span><span class="current">1</span><a rel="next" href="#">2</a><a href="#">3</a><a href="#">4</a><a href="#">5</a><a href="#">6</a><a href="#">7</a><a href="#">8</a><a href="#">9</a><a href="#">10</a><a href="#">11</a><a rel="next" class="next_page" href="#">Next »</a>
+                  </div>-->
+                </div>
+              </form>
+                            </div>
+                
           </div>
         </div>
       </div>

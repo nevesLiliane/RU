@@ -2,6 +2,6 @@ package aa.modelo;
 
 public enum Titulo {
 	
-	Especializacao, Mestrado, Doutorado;
+	ESPECIALIZACAO, MESTRADO, DOUTORADO;
 
 }

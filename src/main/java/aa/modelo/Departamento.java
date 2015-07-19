@@ -102,7 +102,7 @@ public class Departamento {
 		Departamento departamento = new Departamento();
 		try{
 			String sql = "SELECT iddepartamento, nome, sigla FROM  departamento where "
-					+ " matricula=?";
+					+ " iddepartamento="+ id;
 			stat = conn.createStatement();
 			rs = stat.executeQuery(sql);
 			
