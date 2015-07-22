@@ -12,7 +12,7 @@ CREATE TABLE refeicao (
   idRefeicao INT NOT NULL AUTO_INCREMENT,
   descricao VARCHAR(45) NULL,
   opcaoVegetariana VARCHAR(45) NULL,
-  turno INT NOT NULL,
+  turno VARCHAR(45) NOT NULL,
   situacao TINYINT(1) NOT NULL,
   PRIMARY KEY (idRefeicao));
 
@@ -100,9 +100,9 @@ CREATE TABLE IF NOT EXISTS aluno (
     ON UPDATE NO ACTION);
 
 -- Insert refeicao
-INSERT INTO refeicao (descricao,opcaoVegetariana,turno, situacao) VALUES ('Arroz com bifé','Bolinho de soja',1,1);
-INSERT INTO refeicao (descricao,opcaoVegetariana,turno, situacao) VALUES ('Macarrão com salsicha','Quiche de legumes',2,1);
-INSERT INTO refeicao (descricao,opcaoVegetariana,turno, situacao) VALUES ('Arroz com carré','Soja',3,1);
+INSERT INTO refeicao (descricao,opcaoVegetariana,turno, situacao) VALUES ('Arroz com bifé','Bolinho de soja','TARDE',1);
+INSERT INTO refeicao (descricao,opcaoVegetariana,turno, situacao) VALUES ('Macarrão com salsicha','Quiche de legumes','NOITE',1);
+INSERT INTO refeicao (descricao,opcaoVegetariana,turno, situacao) VALUES ('Arroz com carré','Soja','TARDE',1);
 
 -- Insert departamento
 INSERT INTO departamento (nome,sigla) VALUES ('Departamento de Tecnologias e Liguagens','DTL');
