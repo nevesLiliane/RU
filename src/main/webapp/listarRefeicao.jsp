@@ -33,7 +33,7 @@
             <h2 class="title"><%=Constantes.DEPTO %></h2><br>
             
              <div class="inner">
-                                <form  id="FrmListaAlunos" name="FrmListaAlunos" action="Refeicao"  method="POST" class="form">
+                                <form  id="FRMDepartamento" name="FRMDepartamento" action="GerirRefeicao"  method="POST" class="form">
                 <table id="table-resultado" class="table">
                     <th><%=Constantes.TURNO%></th>
                     <th><%=Constantes.DESCRICAO%></th>
@@ -42,19 +42,24 @@
                   </tr>
                   <% 	                
 	                for(int i=0; i < refeicoes.size(); i++) {
+	                	String urlEditar = "Refeicao?acao=" +Constantes.ACAO_EDITAR+"&id="+refeicoes.get(i).getId();
+	                	String urlDeletar = "Refeicao?acao=" +Constantes.ACAO_DELETAR+"&id="+refeicoes.get(i).getId();
+
 	                  	if(i%2 == 0){ %>
 	                  	<tr class="odd"> 
                     		<td><%=refeicoes.get(i).getTurno().toString()%></td>                  
 	                        <td><%=refeicoes.get(i).getDescricao()%></td>
 	                        <td><%=refeicoes.get(i).getOpVeg()%></td>
-	                        <td class="last"><a href="#"><%=Constantes.EDITAR%></a> </td>	                        
+	                         <td class="last"><a href="<%=urlEditar%>"><%=Constantes.EDITAR%></a> </td>
+	                        <td class="last"><a href="<%=urlDeletar%>"><%=Constantes.DELETE%></a> </td>	                       
 	                    </tr>
 	                <% } else { %>
 	                    <tr class="even">                  
 	                        <td><%=refeicoes.get(i).getTurno().toString()%></td>                  
 	                        <td><%=refeicoes.get(i).getDescricao()%></td>
 	                        <td><%=refeicoes.get(i).getOpVeg()%></td>
-	                        <td class="last"><a href="#"><%=Constantes.EDITAR%></a> </td>	                        
+	                        <td class="last"><a href="<%=urlEditar%>"><%=Constantes.EDITAR%></a> </td>
+	                        <td class="last"><a href="<%=urlDeletar%>"><%=Constantes.DELETE%></a> </td>	 	                        
 	                    </tr>                    
 	            	<%}  
 	           		}%>

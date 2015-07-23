@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import jdk.nashorn.internal.ir.RuntimeNode.Request;
+//import jdk.nashorn.internal.ir.RuntimeNode.Request;
 import aa.Componentes.Constantes;
 import aa.modelo.Refeicao;
 import aa.modelo.Turno;
@@ -35,6 +35,8 @@ public class RefeicaoServlet extends HttpServlet {
 			}else if(acao.equals(Constantes.SALVAR)){
 				salvar(request, response);
 				//request.getRequestDispatcher("CadRefeicao.jsp").forward(request, response);
+			}else if(acao.equals(Constantes.ACAO_EDITAR)){
+				editar(request, response);
 			}
 		}
 	
@@ -45,6 +47,15 @@ public class RefeicaoServlet extends HttpServlet {
 		if(acao==null){
 			req.setAttribute("refeicoes", new Refeicao().list());
 			req.getRequestDispatcher("listarRefeicao.jsp").forward(req, resp);
+		}else if (acao.equals(Constantes.ACAO_EDITAR)){
+			String id =(String)req.getParameter("id");
+			if(id ==null){
+				req.setAttribute("mensagem", "Erro, id vazio");
+			}
+			Refeicao refeicao = new Refeicao();
+			refeicao = refeicao.get(id);
+			req.setAttribute("refeicao", refeicao);
+			req.getRequestDispatcher("CadRefeicao.jsp").forward(req, resp);
 		}
 	}
 	
@@ -72,6 +83,27 @@ public class RefeicaoServlet extends HttpServlet {
 			e.printStackTrace();
 		}	
 	}
+	
+	protected void editar(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{
+		String descricao = (String)req.getParameter("descricao");
+		String opVeg = (String)req.getParameter("opVeg");
+		String turno = (String)req.getParameter("turno");
+		String id = (String)req.getParameter("id");
+		if(descricao == null || opVeg==null || turno ==null){
+			req.setAttribute("mensagem", Constantes.ERRO_VAZIO);
+			req.getRequestDispatcher("CadRefeicao.jsp").forward(req, resp);
+		}
+		
+		
+		Refeicao refeicao = new Refeicao();
+		refeicao.setId(Integer.parseInt(id));
+		refeicao.setDescricao(descricao);
+		refeicao.setOpVeg(opVeg);
+		refeicao.setTurno(Turno.valueOf(turno));
 
+		refeicao.atualizar(id);
+		req.setAttribute("refeicoes", new Refeicao().list());
+		req.getRequestDispatcher("listarRefeicao.jsp").forward(req, resp);	
+	}
 	
 }
