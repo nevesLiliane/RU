@@ -95,4 +95,52 @@ public class Refeicao {
 			System.out.println(e.getMessage());
 		}
 	}
+	
+	public Refeicao get(String id){
+		Connection conn = Conexao.Conecta(Constantes.DBPATH, Constantes.USER, Constantes.PASS);
+
+		ResultSet rs = null;
+		Statement stat;
+		Refeicao refeicao= null;
+		try{
+			String sql = "SELECT idRefeicao, descricao, opcaovegetariana, turno FROM  refeicao where idRefeicao=" +id;
+			stat = conn.createStatement();
+			rs = stat.executeQuery(sql);
+			
+			if (rs.next()){
+				refeicao = new Refeicao();
+				refeicao.setId(rs.getInt(1));
+				refeicao.setDescricao(rs.getString(2));
+				refeicao.setOpVeg(rs.getString(3));
+				String turno= rs.getString(4);
+				refeicao.setTurno(Turno.valueOf(String.valueOf(turno)));
+			}
+
+		} 
+		catch (Exception e){
+			System.out.println(e.getMessage());
+		}
+		return refeicao;
+		
+	}
+	
+	public Refeicao atualizar(String id){
+		Connection conn = Conexao.Conecta(Constantes.DBPATH, Constantes.USER, Constantes.PASS);
+
+		ResultSet rs = null;
+		PreparedStatement stat;
+		Refeicao refeicao= null;
+		try{
+			String sql = "UPDATE refeicao set descricao=?,  opcaovegetariana=? where idRefeicao=?";
+			stat = conn.prepareStatement(sql);
+			stat.setString(1, getDescricao());
+			stat.setString(2, getOpVeg());
+			stat.setString(3, id);
+			stat.execute();
+		} 
+		catch (Exception e){
+			System.out.println(e.getMessage());
+		}
+		return refeicao;
+	}
 }
