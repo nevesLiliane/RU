@@ -11,7 +11,7 @@ public class Constantes {
 	final public static String ANOINGRESSO = "Ano de Ingresso ";
 	final public static String ACAO_EDITAR = "Edit";
 	final public static String ACAO_DELETAR = "Excluir";
-
+	
 	
 	final public static String CADREFEICAO = "Cadastro de Refei&ccedil&otildees dispon&iacuteveis";
 	final public static String CADALUNOS = "Cadastro de Alunos ";
@@ -70,6 +70,11 @@ public class Constantes {
 
 	final public static String ERRO = "Erro ao executar opera&ccedil&atildeo";
 	final public static String SUCESSO = "Sucesso ao executar opera&ccedil&atildeo";
+	
+	final public static String MANHA = "Manh&atilde";
+	final public static String TARDE = "Tarde";
+	final public static String NOITE = "Noite";
+
 
 	// TEMPLATE
 	final public static String BASE_CSS = "<link rel='stylesheet' href='Stylesheets/base.css' type='text/css' media='screen' /> ";

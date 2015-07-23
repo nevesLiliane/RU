@@ -1,7 +1,9 @@
 package aa.modelo;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
@@ -65,7 +67,6 @@ public class Refeicao {
 				refeicao.setDescricao(rs.getString(2));
 				refeicao.setOpVeg(rs.getString(3));
 				String turno= rs.getString(4);
-				System.out.println(Turno.valueOf(turno));
 				refeicao.setTurno(Turno.valueOf(String.valueOf(turno)));
 				refeicoes.add(refeicao);
 			}
@@ -76,5 +77,22 @@ public class Refeicao {
 		}
 		return refeicoes;
 		
+	}
+	
+	public void criar() throws SQLException{
+		Connection conn = Conexao.Conecta(Constantes.DBPATH, Constantes.USER, Constantes.PASS);
+		try{
+			String sql = "INSERT INTO refeicao (descricao, opcaoVegetariana, turno, situacao) VALUES (?,?, ?, 1)";
+			PreparedStatement stmt = conn.prepareStatement(sql);
+			stmt.setString(1, getDescricao());
+			stmt.setString(2, getOpVeg());
+			stmt.setString(3, getTurno().toString());
+			stmt.execute();
+			
+			conn.close();
+		} catch (Exception e){
+			conn.close();
+			System.out.println(e.getMessage());
+		}
 	}
 }

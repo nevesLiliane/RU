@@ -4,10 +4,10 @@
 	<div id='main-navigation'>
 		<ul class='wat-cf'>
 			<li><a href='Refeicao'><%=Constantes.REFEICAO%></a></li>
-			<li><a href='CadastrarAluno'><%=Constantes.ALUNOS%></a></li>
+			<li><a href='Aluno'><%=Constantes.ALUNOS%></a></li>
 			<li><a href='Funcionario'><%=Constantes.FUNCIONARIO%></a></li>
 			<li><a href='Departamento'><%=Constantes.DEPTO%></a></li>
-			<li><a href='CadastrarCurso'><%=Constantes.CURSO%></a></li>
+			<li><a href='Curso'><%=Constantes.CURSO%></a></li>
 			<li><a href='CadastrarTicket'><%=Constantes.TICKET%></a></li>
 		</ul>
 	</div>
