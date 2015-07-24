@@ -56,7 +56,7 @@ public class Refeicao {
 		ArrayList<Refeicao> refeicoes = new ArrayList<Refeicao>();
 
 		try{
-			String sql = "SELECT idRefeicao, descricao, opcaovegetariana, turno FROM  refeicao";
+			String sql = "SELECT idRefeicao, descricao, opcaovegetariana, turno FROM  refeicao where situacao=1";
 			stat = conn.createStatement();
 			rs = stat.executeQuery(sql);
 			
@@ -142,5 +142,22 @@ public class Refeicao {
 			System.out.println(e.getMessage());
 		}
 		return refeicao;
+	}
+	
+	public void excluir(String id)throws SQLException{
+		Connection conn = Conexao.Conecta(Constantes.DBPATH, Constantes.USER, Constantes.PASS);
+
+		ResultSet rs = null;
+		PreparedStatement stat;
+		Refeicao refeicao= null;
+		try{
+			String sql = "UPDATE refeicao set situacao=0 where idRefeicao=?";
+			stat = conn.prepareStatement(sql);
+			stat.setString(1, id);
+			stat.execute();
+		} 
+		catch (Exception e){
+			System.out.println(e.getMessage());
+		}
 	}
 }

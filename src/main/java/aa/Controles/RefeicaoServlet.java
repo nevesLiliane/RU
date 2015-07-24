@@ -9,7 +9,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import jdk.nashorn.internal.ir.RuntimeNode.Request;
 import aa.Componentes.Constantes;
 import aa.modelo.Refeicao;
 import aa.modelo.Turno;
@@ -56,6 +55,13 @@ public class RefeicaoServlet extends HttpServlet {
 			refeicao = refeicao.get(id);
 			req.setAttribute("refeicao", refeicao);
 			req.getRequestDispatcher("CadRefeicao.jsp").forward(req, resp);
+		}else if (acao.equals(Constantes.ACAO_DELETAR)){
+			try {
+				excluir(req, resp);
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}	
 		}
 	}
 	
@@ -104,6 +110,30 @@ public class RefeicaoServlet extends HttpServlet {
 		refeicao.atualizar(id);
 		req.setAttribute("refeicoes", new Refeicao().list());
 		req.getRequestDispatcher("listarRefeicao.jsp").forward(req, resp);	
+	}
+	
+	protected void excluir(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException, SQLException{
+		String id =(String)req.getParameter("id");
+		if(id.equals("")){
+			req.setAttribute("mensagem", "Erro, id vazio");
+			req.setAttribute("refeicoes", new Refeicao().list());
+			req.getRequestDispatcher("listarRefeicao.jsp").forward(req, resp);
+
+		}else{
+		
+			Refeicao refeicao = new Refeicao();
+			refeicao = refeicao.get(id);
+			if(refeicao==null){
+				req.setAttribute("mensagem", "Refeicao Ja excluida");
+				req.setAttribute("refeicoes", new Refeicao().list());
+				req.getRequestDispatcher("listarRefeicao.jsp").forward(req, resp);
+			}else{
+				refeicao.excluir(id);
+				req.setAttribute("mensagem", "Sucesso ao excluir");
+				req.setAttribute("refeicoes", new Refeicao().list());
+				req.getRequestDispatcher("listarRefeicao.jsp").forward(req, resp);
+			}
+		}
 	}
 	
 }

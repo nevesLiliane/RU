@@ -5,7 +5,6 @@
 <%@page contentType="text/html; charset=ISO-8859-1" language="java" pageEncoding="UTF-8" %>
 <!-- Nao deixa o JSP criar sessoes -->
 <%@page session="false"%>
-<%@include file="messagePage.jsp" %>
 <%
 	ArrayList<Refeicao> refeicoes = (ArrayList<Refeicao>)request.getAttribute("refeicoes");
 
@@ -31,9 +30,9 @@
         <div class="block" id="block-tables">
           <div class="content">
             <h2 class="title"><%=Constantes.DEPTO %></h2><br>
-            
+            <%@include file="messagePage.jsp" %>
              <div class="inner">
-                                <form  id="FRMDepartamento" name="FRMDepartamento" action="GerirRefeicao"  method="POST" class="form">
+                                <form  id="FRMDepartamento" name="FRMDepartamento" action="Refeicao"  method="POST" class="form">
                 <table id="table-resultado" class="table">
                     <th><%=Constantes.TURNO%></th>
                     <th><%=Constantes.DESCRICAO%></th>
