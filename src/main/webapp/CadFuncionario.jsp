@@ -38,7 +38,7 @@
             <%@include file="messagePage.jsp" %>
             
               <form id="Frmpergunta" name="FrmFuncionario" action="Funcionario" method="POST" class="form">
-        	  <input type = "hidden" id="matricula" name = "matricula" <% if (funcionario != null && funcionario.getMatricula() != null ) { out.print(" value = '" + funcionario.getMatricula() + "'"); } %>>
+        	  <input type = "hidden" id="matriculaHidden" name = "matriculaHidden" <% if (funcionario != null && funcionario.getMatricula() != null ) { out.print(" value = '" + funcionario.getMatricula() + "'"); } %>>
                 <div class="group">
                   <label class="label"><%=Constantes.NOME%></label>
                   <input type="text" id="nome" name="nome" <%  if (funcionario != null && funcionario.getNome() != null ) { out.print(" value = '" + funcionario.getNome() + "'"); } %> class="text_field" />

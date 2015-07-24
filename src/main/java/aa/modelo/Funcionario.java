@@ -47,10 +47,10 @@ public class Funcionario extends Consumidor{
 			stmt.setString(6,getCpf().getCPF());
 			stmt.execute();
 			sql = "INSERT INTO funcionario VALUES (?,?)";
-			stmt = conn.prepareStatement(sql);
-			stmt.setInt(1, Integer.parseInt(getMatricula()));
-			stmt.setInt(2,Integer.parseInt(getDepartamento().getId()));
-			stmt.execute();
+			PreparedStatement stmt2 = conn.prepareStatement(sql);
+			stmt2.setInt(1, Integer.parseInt(getMatricula()));
+			stmt2.setInt(2,Integer.parseInt(getDepartamento().getId()));
+			stmt2.execute();
 			conn.close();
 		} catch (Exception e){
 			conn.close();

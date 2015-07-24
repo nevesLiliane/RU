@@ -49,16 +49,16 @@
                     		<td><%=refeicoes.get(i).getTurno().toString()%></td>                  
 	                        <td><%=refeicoes.get(i).getDescricao()%></td>
 	                        <td><%=refeicoes.get(i).getOpVeg()%></td>
-	                         <td class="last"><a href="<%=urlEditar%>"><%=Constantes.EDITAR%></a> </td>
-	                        <td class="last"><a href="<%=urlDeletar%>"><%=Constantes.DELETE%></a> </td>	                       
+	                         <td class="last"><a href="<%=urlEditar%>"><%=Constantes.EDITAR%></a>&nbsp;&nbsp;
+	                        <a href="<%=urlDeletar%>"><%=Constantes.DELETE%></a> </td>	                       
 	                    </tr>
 	                <% } else { %>
 	                    <tr class="even">                  
 	                        <td><%=refeicoes.get(i).getTurno().toString()%></td>                  
 	                        <td><%=refeicoes.get(i).getDescricao()%></td>
 	                        <td><%=refeicoes.get(i).getOpVeg()%></td>
-	                        <td class="last"><a href="<%=urlEditar%>"><%=Constantes.EDITAR%></a> </td>
-	                        <td class="last"><a href="<%=urlDeletar%>"><%=Constantes.DELETE%></a> </td>	 	                        
+	                        <td class="last"><a href="<%=urlEditar%>"><%=Constantes.EDITAR%></a>&nbsp;&nbsp;
+	                       	<a href="<%=urlDeletar%>"><%=Constantes.DELETE%></a> </td>	 	                        
 	                    </tr>                    
 	            	<%}  
 	           		}%>

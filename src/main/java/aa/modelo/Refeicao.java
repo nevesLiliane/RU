@@ -127,7 +127,6 @@ public class Refeicao {
 	public Refeicao atualizar(String id){
 		Connection conn = Conexao.Conecta(Constantes.DBPATH, Constantes.USER, Constantes.PASS);
 
-		ResultSet rs = null;
 		PreparedStatement stat;
 		Refeicao refeicao= null;
 		try{
@@ -146,10 +145,7 @@ public class Refeicao {
 	
 	public void excluir(String id)throws SQLException{
 		Connection conn = Conexao.Conecta(Constantes.DBPATH, Constantes.USER, Constantes.PASS);
-
-		ResultSet rs = null;
 		PreparedStatement stat;
-		Refeicao refeicao= null;
 		try{
 			String sql = "UPDATE refeicao set situacao=0 where idRefeicao=?";
 			stat = conn.prepareStatement(sql);

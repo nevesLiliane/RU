@@ -44,8 +44,8 @@
 					            
 					                for(int i=0; i < funcionarios.size(); i++) {
 
-				                  		String urlEditar = "Funcionario?acao="+Constantes.EDITAR+"&matricula="+funcionarios.get(i).getMatricula();
-					                  	if(i%2 == 0){%>
+					                	String urlEditar = "Funcionario?acao=" +Constantes.ACAO_EDITAR+"&matricula="+funcionarios.get(i).getMatricula();
+					                	String urlDeletar = "Funcionario?acao=" +Constantes.ACAO_DELETAR+"&matricula="+funcionarios.get(i).getMatricula();					                  	if(i%2 == 0){%>
 					                  	<tr class="odd">                   
 					                        <td><%=funcionarios.get(i).getNome()%></td>
 					                        <td><%=funcionarios.get(i).getMatricula()%></td>
@@ -53,7 +53,8 @@
 					                        <td><%=funcionarios.get(i).getSexo()%></td>
 					                        <td><%=funcionarios.get(i).getDepartamento().getSigla()%></td>
 					                        <td><%=funcionarios.get(i).getCpf().getCPF()%></td>
-					                        <td class="last"><a href="<%=urlEditar %>"><%=Constantes.EDITAR%></a> </td>	                        
+					                        <td class="last"><a href="<%=urlEditar %>"><%=Constantes.EDITAR%></a>&nbsp;&nbsp;
+					                        <a href="<%=urlDeletar %>"><%=Constantes.DELETE%></a> </td>	  	                        
 					                    </tr>
 					                <% } else { %>
 					                    <tr class="even">                   
@@ -63,7 +64,8 @@
 					                        <td><%=funcionarios.get(i).getSexo()%></td>
 					                        <td><%=funcionarios.get(i).getDepartamento().getSigla()%></td>
 					                        <td><%=funcionarios.get(i).getCpf().getCPF()%></td>
-					                        <td class="last"><a href="<%=urlEditar %>"><%=Constantes.EDITAR%></a> </td>	                        
+					                        <td class="last"><a href="<%=urlEditar %>"><%=Constantes.EDITAR%></a>&nbsp;&nbsp; 
+					                        <a href="<%=urlDeletar %>"><%=Constantes.DELETE%></a> </td>	                          
 					                    </tr>                    
 					            	<%}  
 					           		}%>

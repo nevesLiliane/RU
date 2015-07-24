@@ -6,7 +6,7 @@
 <%@page session="false"%>
 <%
 	ArrayList<Curso> cursos = (ArrayList<Curso>)request.getAttribute("cursos");
-	Aluno funcionario = (Aluno)request.getAttribute("aluno");
+	Aluno aluno = (Aluno)request.getAttribute("aluno");
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -37,18 +37,18 @@
             <%@include file="messagePage.jsp" %>
             
               <form id="Frmpergunta" name="FrmAluno" action="Aluno" method="POST" class="form">
-        	  <input type = "hidden" id="matricula" name = "matricula" <% if (funcionario != null && funcionario.getMatricula() != null ) { out.print(" value = '" + funcionario.getMatricula() + "'"); } %>>
+        	  <input type = "hidden" id="matriculaHidden" name = "matriculaHidden" <% if (aluno != null && aluno.getMatricula() != null ) { out.print(" value = '" + aluno.getMatricula() + "'"); } %>>
                 <div class="group">
                   <label class="label"><%=Constantes.NOME%></label>
-                  <input type="text" id="nome" name="nome" <%  if (funcionario != null && funcionario.getNome() != null ) { out.print(" value = '" + funcionario.getNome() + "'"); } %> class="text_field" />
+                  <input type="text" id="nome" name="nome" <%  if (aluno != null && aluno.getNome() != null ) { out.print(" value = '" + aluno.getNome() + "'"); } %> class="text_field" />
                 </div>
                 <div class="group">
                     <label class="label" for="post_title"><%=Constantes.MATRICULA%></label>
-                   <input type="text" id="matricula" name="matricula"  size="10"<% if (funcionario != null && funcionario.getMatricula() != null ) { out.print(" value = '" + funcionario.getMatricula() + "'"); } %> class="text_field" />
+                   <input type="text" id="matricula" name="matricula"  size="10"<% if (aluno != null && aluno.getMatricula() != null ) { out.print(" value = '" + aluno.getMatricula() + "'"); } %> class="text_field" />
                 </div>
                 <div class="group">
                     <label class="label" for="post_title"><%=Constantes.ANOINGRESSO%></label>
-                  	<input type="text"  id="anoIngresso" name="anoIngresso" size="10" <%if (funcionario != null && funcionario.getAnoIngresso() != null ) { out.print(" value = '" + funcionario.getAnoIngresso() + "'"); } %> class="text_field" />
+                  	<input type="text"  id="anoIngresso" name="anoIngresso" size="10" <%if (aluno != null && aluno.getAnoIngresso() != null ) { out.print(" value = '" + aluno.getAnoIngresso() + "'"); } %> class="text_field" />
                 </div> 
                 <div class="group">
                     <label class="label" for="post_title"><%=Constantes.SEXO%></label>
@@ -67,24 +67,24 @@
                 
                 <div class="group">
                     <label class="label" for="post_title"><%=Constantes.CPF%></label>
-                    <input type="text"  id="cpf" name="cpf" <% if (funcionario != null && funcionario.getCpf().getCPF() != null ) { out.print(" value = '" + funcionario.getCpf().getCPF() + "'"); } %> class="text_field" onblur="valida(this)"/>     
+                    <input type="text"  id="cpf" name="cpf" <% if (aluno != null && aluno.getCpf().getCPF() != null ) { out.print(" value = '" + aluno.getCpf().getCPF() + "'");} %> class="text_field" onblur="valida(this)"/>     
              	</div>
      	         <div class="group">
-                    <label class="label" for="post_title"><%=Constantes.DEPTO%></label>
+                    <label class="label" for="post_title"><%=Constantes.CURSO%></label>
                     <select id ="Curso" name="Curso">
                     <% for(Curso curso : cursos){ %>
-                        <option value="<%=curso.getId() %>" <% if(funcionario!=null && (curso.getId().equals(funcionario.getCurso().getId()))){ out.print(" selected");} %>><%=curso.getNome()%></option>
+                        <option value="<%=curso.getId() %>" <% if(aluno!=null && (curso.getId().equals(aluno.getCurso().getId()))){ out.print(" selected");} %>><%=curso.getNome()%></option>
                     <% } %>                        
                     </select>
                 </div>
                 <div class="group navform wat-cf">
-               <%if(funcionario == null) {%>
+               <%if(aluno == null) {%>
                   <button class="button" type="submit" id='acao' name="acao" value="<%=Constantes.SALVAR%>"><%=Constantes.SALVAR%></button>
                 <%}else{%>
-                 <button class="button" type="submit" id='acao' name="acao" value="<%=Constantes.ACAO_EDITAR%>"><%=Constantes.SALVAR%></button>
+                 <button class="button" type="submit" id='acao' name="acao" value="<%=Constantes.ACAO_EDITAR%>"><%=Constantes.EDITAR%></button>
                 <%} %>
                   <span class="text_button_padding">Ou</span>
-                  <a class="text_button_padding link_button" href="Funcionario"><%=Constantes.CANCELAR%></a>
+                  <a class="text_button_padding link_button" href="Aluno"><%=Constantes.CANCELAR%></a>
                 </div>
               </form>
             </div>

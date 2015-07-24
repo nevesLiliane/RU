@@ -136,10 +136,11 @@ public Curso get(String id){
 		rs = stat.executeQuery(sql);
 		
 		if (rs.next()){
-			curso.setNome(rs.getString(1));
-			curso.setSigla(rs.getString(2));
+			curso.setId(rs.getString(1));
+			curso.setNome(rs.getString(2));
+			curso.setSigla(rs.getString(3));
 			Departamento depto = new Departamento();
-			curso.setDepartamento(depto.get(rs.getString(3)));
+			curso.setDepartamento(depto.get(rs.getString(4)));
 		}
 
 	} 
