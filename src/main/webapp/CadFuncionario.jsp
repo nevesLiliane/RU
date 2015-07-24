@@ -82,7 +82,7 @@
                <%if(funcionario == null) {%>
                   <button class="button" type="submit" id='acao' name="acao" value="<%=Constantes.SALVAR%>"><%=Constantes.SALVAR%></button>
                 <%}else{%>
-                 <button class="button" type="submit" id='acao' name="acao" value="<%=Constantes.ACAO_EDITAR%>"><%=Constantes.SALVAR%></button>
+                 <button class="button" type="submit" id='acao' name="acao" value="<%=Constantes.ACAO_EDITAR%>"><%=Constantes.EDITAR%></button>
                 <%} %>
                   <span class="text_button_padding">Ou</span>
                   <a class="text_button_padding link_button" href="Funcionario"><%=Constantes.CANCELAR%></a>

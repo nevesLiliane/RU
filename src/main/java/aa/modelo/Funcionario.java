@@ -39,8 +39,9 @@ public class Funcionario extends Consumidor{
 		try{
 			String sql = "INSERT INTO consumidor VALUES (?,?,?, ?, ?,?, 1)";
 			PreparedStatement stmt = conn.prepareStatement(sql);
-			stmt.setInt(1, Integer.parseInt(getMatricula()));
+			stmt.setString(1, getMatricula());
 			stmt.setString(2,getNome());
+			System.out.println(getNome());
 			stmt.setString(3, getAnoIngresso());
 			stmt.setString(4,getSexo().toString());
 			stmt.setString(5, getTitulo().toString());
@@ -48,8 +49,9 @@ public class Funcionario extends Consumidor{
 			stmt.execute();
 			sql = "INSERT INTO funcionario VALUES (?,?)";
 			PreparedStatement stmt2 = conn.prepareStatement(sql);
-			stmt2.setInt(1, Integer.parseInt(getMatricula()));
-			stmt2.setInt(2,Integer.parseInt(getDepartamento().getId()));
+			stmt2.setString(1,getDepartamento().getId());
+			stmt2.setString(2, getMatricula());
+			
 			stmt2.execute();
 			conn.close();
 		} catch (Exception e){
@@ -114,9 +116,10 @@ public class Funcionario extends Consumidor{
 			stmt.execute();
 			
 			sql = "UPDATE funcionario set iddepartamento=? where matricula=?";
-			stmt.setString(1, getDepartamento().getId());
-			stmt.setString(2, getMatricula());
-			stmt.execute();
+			PreparedStatement stmt2 = conn.prepareStatement(sql);
+			stmt2.setString(1, getDepartamento().getId());
+			stmt2.setString(2, getMatricula());
+			stmt2.execute();
 			conn.close();
 		} catch (Exception e){
 			conn.close();
