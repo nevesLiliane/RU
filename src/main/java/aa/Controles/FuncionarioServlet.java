@@ -10,9 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import aa.Componentes.Constantes;
-import aa.modelo.Aluno;
 import aa.modelo.CPF;
-import aa.modelo.Curso;
 import aa.modelo.Departamento;
 import aa.modelo.Funcionario;
 import aa.modelo.Sexo;
@@ -25,12 +23,12 @@ public class FuncionarioServlet extends HttpServlet {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	
-protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
-		
+
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+
 		String acao = (String)request.getParameter("acao");
 		String matricula = (String)request.getParameter("matricula");
-	
+
 		if(acao==null){
 			request.setAttribute("funcionarios", new Funcionario().list());
 			request.getRequestDispatcher("listarFuncionario.jsp").forward(request, response);
@@ -45,8 +43,8 @@ protected void doPost(HttpServletRequest request, HttpServletResponse response) 
 			request.setAttribute("departamentos", new Departamento().list());
 			//request.getRequestDispatcher("CadFuncionario.jsp").forward(request, response);		
 		}
-			
-	
+
+
 	}
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{
 		String acao = (String)req.getParameter("acao");
@@ -63,7 +61,7 @@ protected void doPost(HttpServletRequest request, HttpServletResponse response) 
 			//req.getRequestDispatcher("CadAluno.jsp").forward(req, resp);
 		}
 	}
-	
+
 	protected void salvar(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{
 		String nome = (String)req.getParameter("nome");
 		String matricula = (String)req.getParameter("matricula");
@@ -72,7 +70,7 @@ protected void doPost(HttpServletRequest request, HttpServletResponse response) 
 		String titulo = (String)req.getParameter("titulo");
 		String cpf = (String)req.getParameter("cpf");
 		String departamento = (String)req.getParameter("departamento");
-
+		System.out.println("Aqui 1teste");
 		if(matricula.equals("") || nome.equals("") || anoIngresso.equals("") || sexo.equals("")  || titulo.equals("") || cpf.equals("") || 
 				departamento.equals("")){
 			System.out.println("Matricula"+ matricula+"Nome" + nome+"AnoIngresso"+anoIngresso + "Sexo" + sexo +"titulo" + titulo + "cpf" + cpf + "departamento" + departamento);
@@ -83,27 +81,34 @@ protected void doPost(HttpServletRequest request, HttpServletResponse response) 
 			Funcionario func = new Funcionario();
 			func.setAnoIngresso(anoIngresso);
 			CPF cpftemp = new CPF();
-			cpftemp.setCPF(cpf);
-			func.setCpf(cpftemp);
-			func.setDepartamento(new Departamento().get(departamento));
-			func.setMatricula(matricula);
-			func.setNome(nome);
-			func.setSexo(Sexo.valueOf(sexo));
-			func.setTitulo(Titulo.valueOf(titulo));
-			try {
-				func.criar();
-				req.setAttribute("mensagem", Constantes.SUCESSO);
-				req.setAttribute("funcionarios", new Funcionario().list());
-				req.getRequestDispatcher("listarFuncionario.jsp").forward(req, resp);
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				req.setAttribute("mensagem", Constantes.ERRO);
+			if(cpftemp.validaCPF(cpf)){
+				cpftemp.setCPF(cpf);
+				
+				func.setCpf(cpftemp);
+				func.setDepartamento(new Departamento().get(departamento));
+				func.setMatricula(matricula);
+				func.setNome(nome);
+				func.setSexo(Sexo.valueOf(sexo));
+				func.setTitulo(Titulo.valueOf(titulo));
+				try {
+					func.criar();
+					req.setAttribute("mensagem", Constantes.SUCESSO);
+					req.setAttribute("funcionarios", new Funcionario().list());
+					req.getRequestDispatcher("listarFuncionario.jsp").forward(req, resp);
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					req.setAttribute("mensagem", Constantes.ERRO);
+					req.getRequestDispatcher("CadFuncionario.jsp").forward(req, resp);
+					e.printStackTrace();
+				}
+			}else{//caso cpf seja invalido
+				req.setAttribute("mensagem", Constantes.ERRO_CPF);
+				req.setAttribute("departamentos", new Departamento().list());
 				req.getRequestDispatcher("CadFuncionario.jsp").forward(req, resp);
-				e.printStackTrace();
 			}
 		}		
 	}
-	
+
 	protected void editar(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{
 
 		String matricula = (String)req.getParameter("matricula");
@@ -123,7 +128,13 @@ protected void doPost(HttpServletRequest request, HttpServletResponse response) 
 			Funcionario func = new Funcionario();
 			func.setAnoIngresso(anoIngresso);
 			CPF cpftemp = new CPF();
-			cpftemp.setCPF(cpf);
+			try {
+				cpftemp.setCPF(cpf);
+			} catch (Exception e1) {
+				req.setAttribute("mensagem", Constantes.ERRO_CPF);
+				req.getRequestDispatcher("CadFuncionario.jsp").forward(req, resp);
+				e1.printStackTrace();
+			}
 			func.setCpf(cpftemp);
 			func.setDepartamento(new Departamento().get(departamento));
 			func.setMatricula(matricula);

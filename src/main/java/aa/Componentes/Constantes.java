@@ -69,6 +69,7 @@ public class Constantes {
 	final public static String VALOR = "Pre&ccedilo";
 
 	final public static String ERRO = "Erro ao executar opera&ccedil&atildeo";
+	final public static String ERRO_CPF = "Erro, CPF inválido";
 	final public static String SUCESSO = "Sucesso ao executar opera&ccedil&atildeo";
 	
 	final public static String MANHA = "Manh&atilde";
